@@ -23,9 +23,6 @@ class putRequest extends FormRequest
         if($this->expectsJson()){
             $response = new Response($validator->errors(),422);
             throw new ValidationException($validator, $response);
-        }else{
-            $response = new Response(['Error' => 'Se esperaba una petición JSON' ],422);
-            throw new ValidationException($validator, $response);
         }
     }
 
@@ -39,7 +36,7 @@ class putRequest extends FormRequest
         $userId = $this->route('user');
         return[
             'name' => 'string',
-            'email' => 'email|unique:users,email, ' . $userId,
+            'email' => 'email|unique:users,email,' . $userId->id,
             'verified' => 'in:' . User::Usuario_Verificado . ',' . User::Usuario_No_Verificado,
             'admin' => 'in:' . User::Usuario_Administrador . ',' . User::Usuario_Regular,
         ];

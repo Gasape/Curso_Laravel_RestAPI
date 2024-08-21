@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('buyer_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('product_id')->references('id')->on('products')->onUpdate('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

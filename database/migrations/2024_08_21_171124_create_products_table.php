@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('status')->default(Product::PRODUCTO_NO_DISPONIBLE);
             $table->string('image');
             $table->foreignId('seller_id')->references('id')->on('users')->onDelete('cascade');
-
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
