@@ -23,6 +23,9 @@ class storeRequest extends FormRequest
         if($this->expectsJson()){
             $response = new Response($validator->errors(),422);
             throw new ValidationException($validator, $response);
+        }else{
+            $response = new Response(['Error' => 'Se esperaba una petición JSON' ],422);
+            throw new ValidationException($validator, $response);
         }
     }
     /**

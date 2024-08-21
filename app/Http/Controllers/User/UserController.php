@@ -50,37 +50,36 @@ class UserController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         // Usuario especifico
-        $usuario = User::findOrFail($id);
-
-        return $this->showOne($usuario);
+        return $this->showOne($user);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(putRequest $request, string $id)
+    public function update(putRequest $request, User $user)
     {
-        $user = User::findOrFail($id);
-
         if($request->validated()){
+            // Conseguir el usuario en cuestion //sigue aquí ya que el proyecto comenzó como un proyecto de laravel 11 y en laravel 11 solo te pasan el id 
+            // No el usuario completo es por ello que para adaptarse se concidero simplemente pasarle el ID
+            $usuario = User::findOrFail($user->id);
             // Crear un array vacío que llenaremos con los datos a actualizar
             $data = [];
 
             // Actualizar nombre si se proporciona
-            if ($request->filled('name') && $user->name != $request->name) {
+            if ($request->filled('name') && $usuario->name != $request->name) {
                 $data['name'] = $request->name;
             }
 
             // Actualizar email si se proporciona
-            if ($request->filled('email') && $user->email != $request->email) {
+            if ($request->filled('email') && $usuario->email != $request->email) {
                 $data['email'] = $request->email;
                 $data['verified'] = User::Usuario_No_Verificado;
             }
 
-            if ($request->filled('verified') && $user->verified != $request->verified){
+            if ($request->filled('verified') && $usuario->verified != $request->verified){
                 if($request->verified == 1){
                     $data['verified'] = User::Usuario_Verificado;
                 }else{
@@ -90,8 +89,8 @@ class UserController extends ApiController
             }
 
             // Actualizar admin si se proporciona
-            if ($request->filled('admin') && $user->admin != $request->admin) {
-                if(!$user->esVerificado()) {
+            if ($request->filled('admin') && $usuario->admin != $request->admin) {
+                if(!$usuario->esVerificado()) {
                     return $this->errorResponse('Unicamente los usuarios verificados pueden cambiar su valor de administrador', 422);
                 }
                 $data['admin'] = $request->admin;
@@ -99,14 +98,21 @@ class UserController extends ApiController
 
             if($data != null){
                 // Actualizar solo los campos que fueron modificados
-                $user->update($data);
-                return $this->showOne($user);
+                $usuario->update($data);
+                return $this->showOne($usuario);
 
             }else{
                 return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar', 422);
             }
         }else{
-            return $this->errorResponse($request->validated(), 422);
+            if($request->validated() == null){
+                if(!$request->expectsJson()){
+                    return $this->errorResponse('Se esperaba una petición JSON', 422);
+                }
+                return $this->errorResponse('Los datos no son validos y/o estan vacios', 422);
+            }else{
+                return $this->errorResponse($request->validated(), 422);
+            }
         }
         
     }
@@ -114,11 +120,11 @@ class UserController extends ApiController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
         // Eliminar un usuario especifico 
-        $user = User::findOrFail($id);
-        $user->delete();
+        $usuario = User::findOrFail($user);
+        $usuario->delete();
         return response()->json(['message' => 'Usuario Eliminado con exito'], 200);
     }
 }
