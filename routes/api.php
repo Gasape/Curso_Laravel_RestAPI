@@ -5,7 +5,11 @@ use App\Http\Controllers\Buyer\BuyerController;
 use App\Http\Controllers\Buyer\BuyerProductController;
 use App\Http\Controllers\Buyer\BuyerSellerController;
 use App\Http\Controllers\Buyer\BuyerTransactionController;
+use App\Http\Controllers\Category\CategoryBuyerController;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Category\CategoryProductController;
+use App\Http\Controllers\Category\CategorySellerController;
+use App\Http\Controllers\Category\CategoryTransactionController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\Transaction\TransactionCategoryController;
@@ -24,6 +28,11 @@ Route::resource('users', UserController::class)->except(['create','edit']);
 
 // Categories
 Route::resource('categories', CategoryController::class)->except(['create','edit']);
+Route::resource('categories.sellers', CategorySellerController::class)->only(['index']);
+Route::resource('categories.products', CategoryProductController::class)->only(['index']);
+Route::resource('categories.transactions', CategoryTransactionController::class)->only(['index']);
+Route::resource('categories.buyers', CategoryBuyerController::class)->only(['index']);
+
 
 // Products
 Route::resource('products', ProductController::class)->only(['index','show']);

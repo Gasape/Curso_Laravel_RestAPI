@@ -10,11 +10,15 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['name', 'description'];
 
-    public function productos(){
+    public function products(){
         return $this->belongsToMany(Product::class);
     }
 }
