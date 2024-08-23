@@ -17,6 +17,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        User::flushEventListeners();
+        Category::flushEventListeners();
+        Product::flushEventListeners();
+        Transaction::flushEventListeners();
+
         $cantidadUsuarios = 1000;
         $cantidadCategories = 40;
         $cantidadProductos = 1000;
