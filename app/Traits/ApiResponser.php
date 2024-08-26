@@ -24,11 +24,21 @@ trait ApiResponser
 
     protected function showAll(Collection $collection, $code = 200)
     {
-        return $this->successResponse(['data' => $collection], $code);
+        if($collection->isEmpty()){
+            return $this->successResponse(['data' =>$collection], $code);
+        }
+
+        $transformer = $collection->first()->transformCollection;
+
+        // $collection = $this->transformData($collection, $transformer);
+        // return $this->successResponse(['data' => $collection], $code);
+        return new $transformer($collection); //new UserCollection($users);
     }
 
-    protected function showOne(Model $instance, $code = 200)
+    protected function showOne(Model $model, $code = 200)
     {
-        return $this->successResponse(['data' => $instance], $code);
+        $transformer = $model->transformResource;
+        // return $this->successResponse(['data' => $model], $code);
+        return new $transformer($model); // new UserResource($users);
     }
 }

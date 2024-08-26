@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Resources\User as UserResources;
+use App\Http\Resources\UserCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +24,10 @@ class User extends Authenticatable
 
     protected $table = 'users';
     protected $dates = ['deleted_at'];
+
+    // Transformer/Transformar
+    public $transformResource  = UserResources::class;
+    public $transformCollection  = UserCollection::class; 
 
     /**
      * The attributes that are mass assignable.

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\Product as ProductResources;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,6 +17,9 @@ class Product extends Model
 
     protected $fillable = ['name', 'description', 'quantity', 'status', 'image', 'seller_id'];
     protected $dates = ['deleted_at'];
+
+    public $transformResource  = ProductResources::class;
+    public $transformCollection  = ProductCollection::class; 
 
     protected $hidden = [
         'pivot'
