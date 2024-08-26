@@ -24,6 +24,32 @@ class Seller extends JsonResource
             'fechaCreación' => $this->created_at->format('Y-m-d H:i:s'),
             'fechaActualización' => $this->updated_at->format('Y-m-d H:i:s'),
             'fechaEliminacion' =>  $this->deleted_at ? $this->deleted_at->format('Y-m-d H:i:s') : null,
+            'links' => [
+                [
+                    'rel' => 'self',
+                    'self' => route('sellers.show', $this->id),
+                ],
+                [
+                    'rel' => 'seller.buyer',
+                    'self' => route('sellers.buyers.index', $this->id),
+                ],
+                [
+                    'rel' => 'seller.categories',
+                    'self' => route('sellers.categories.index', $this->id),
+                ],
+                [
+                    'rel' => 'seller.products',
+                    'self' => route('sellers.products.index', $this->id),
+                ],
+                [
+                    'rel' => 'seller.transactions',
+                    'self' => route('sellers.transactions.index', $this->id),
+                ],
+                [
+                    'rel' => 'user',
+                    'self' => route('users.show', $this->id),
+                ],
+            ],
         ];
     }
 }

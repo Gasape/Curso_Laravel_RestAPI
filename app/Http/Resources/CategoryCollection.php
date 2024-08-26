@@ -19,7 +19,6 @@ class CategoryCollection extends ResourceCollection
             'data' => $this->collection->transform(function($category) use ($request) {
                 return (new Category($category))->toArray($request);
             }),
-            
         ];
     }
 

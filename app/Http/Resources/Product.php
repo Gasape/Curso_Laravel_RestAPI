@@ -27,6 +27,28 @@ class Product extends JsonResource
             'fechaCreación' => $this->created_at->format('Y-m-d H:i:s'),
             'fechaActualización' => $this->updated_at->format('Y-m-d H:i:s'),
             'fechaEliminacion' =>  $this->deleted_at ? $this->deleted_at->format('Y-m-d H:i:s') : null,
+            'links' => [
+                [
+                    'rel' => 'self',
+                    'self' => route('products.show', $this->id),
+                ],
+                [
+                    'rel' => 'product.buyers',
+                    'self' => route('products.buyers.index', $this->id),
+                ],
+                [
+                    'rel' => 'product.categories',
+                    'self' => route('products.categories.index', $this->id),
+                ],
+                [
+                    'rel' => 'product.transactions',
+                    'self' => route('products.transactions.index', $this->id),
+                ],
+                [
+                    'rel' => 'seller',
+                    'self' => route('sellers.show', $this->seller_id),
+                ],
+            ],
         ];
     }
 }

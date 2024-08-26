@@ -25,6 +25,12 @@ class User extends JsonResource
             'fechaCreación' => $this->created_at->format('Y-m-d H:i:s'),
             'fechaActualización' => $this->updated_at->format('Y-m-d H:i:s'),
             'fechaEliminacion' =>  $this->deleted_at ? $this->deleted_at->format('Y-m-d H:i:s') : null,
+            'links' => [
+                [
+                    'rel' => 'self',
+                    'self' => route('users.show', $this->id),
+                ],
+            ],
         ];
     }
 }

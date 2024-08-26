@@ -24,6 +24,28 @@ class Transaction extends JsonResource
             'fechaCreación' => $this->created_at->format('Y-m-d H:i:s'),
             'fechaActualización' => $this->updated_at->format('Y-m-d H:i:s'),
             'fechaEliminacion' =>  $this->deleted_at ? $this->deleted_at->format('Y-m-d H:i:s') : null,
+            'links' => [
+                [
+                    'rel' => 'self',
+                    'self' => route('transactions.show', $this->id),
+                ],
+                [
+                    'rel' => 'transaction.categories',
+                    'self' => route('transactions.categories.index', $this->id),
+                ],
+                [
+                    'rel' => 'transaction.seller',
+                    'self' => route('transactions.sellers.index', $this->id),
+                ],
+                [
+                    'rel' => 'buyer',
+                    'self' => route('buyers.show', $this->buyer_id),
+                ],
+                [
+                    'rel' => 'product',
+                    'self' => route('products.show', $this->product_id),
+                ],
+            ],
         ];
     }
 }

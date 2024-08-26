@@ -24,6 +24,32 @@ class Buyer extends JsonResource
             'fechaCreación' => $this->created_at->format('Y-m-d H:i:s'),
             'fechaActualización' => $this->updated_at->format('Y-m-d H:i:s'),
             'fechaEliminacion' =>  $this->deleted_at ? $this->deleted_at->format('Y-m-d H:i:s') : null,
+            'links' => [
+                [
+                    'rel' => 'self',
+                    'self' => route('buyers.show', $this->id),
+                ],
+                [
+                    'rel' => 'buyer.categories',
+                    'self' => route('buyers.categories.index', $this->id),
+                ],
+                [
+                    'rel' => 'buyer.products',
+                    'self' => route('buyers.products.index', $this->id),
+                ],
+                [
+                    'rel' => 'buyer.seller',
+                    'self' => route('buyers.sellers.index', $this->id),
+                ],
+                [
+                    'rel' => 'buyer.transactions',
+                    'self' => route('buyers.transactions.index', $this->id),
+                ],
+                [
+                    'rel' => 'user',
+                    'self' => route('users.show', $this->id),
+                ],
+            ],
         ];
     }
 }

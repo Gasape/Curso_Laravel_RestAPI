@@ -23,6 +23,28 @@ class Category extends JsonResource
             'fechaCreación' => $this->created_at->format('Y-m-d H:i:s'),
             'fechaActualización' => $this->updated_at->format('Y-m-d H:i:s'),
             'fechaEliminacion' =>  $this->deleted_at ? $this->deleted_at->format('Y-m-d H:i:s') : null,
+            'links' => [
+                [
+                    'rel' => 'self',
+                    'self' => route('categories.show', $this->id),
+                ],
+                [
+                    'rel' => 'category.buyers',
+                    'self' => route('categories.buyers.index', $this->id),
+                ],
+                [
+                    'rel' => 'category.products',
+                    'self' => route('categories.products.index', $this->id),
+                ],
+                [
+                    'rel' => 'category.sellers',
+                    'self' => route('categories.sellers.index', $this->id),
+                ],
+                [
+                    'rel' => 'category.transactions',
+                    'self' => route('categories.transactions.index', $this->id),
+                ], 
+            ],
         ];
     }
 }
