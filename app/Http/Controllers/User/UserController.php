@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\UserCollection;
 use App\Http\Requests\User\putRequest;
 use App\Http\Requests\User\storeRequest;
 use App\Mail\UserCreated;
@@ -12,6 +13,14 @@ use Illuminate\Support\Facades\Mail;
 
 class UserController extends ApiController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('transform.input:' . UserCollection::class)->only(['store', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\TransactionCollection;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
@@ -11,7 +12,13 @@ use Illuminate\Support\Facades\DB;
 
 class ProductBuyerTransactionController extends ApiController
 {
-    
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('transform.input:' . TransactionCollection::class)->only(['store']);
+    }
+
     public function store(Request $request, Product $product, User $buyer)
     {
         $rules = [

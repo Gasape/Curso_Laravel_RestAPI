@@ -39,4 +39,21 @@ class ProductCollection extends ResourceCollection
 
         return isset($attributes[$index]) ? $attributes[$index] : null;
     }
+    public static function transformedAttribute($index)
+    {
+        $attributes = [
+             'id' => 'identificador',
+             'name' => 'titulo',
+             'description' => 'detalles',
+             'quantity' => 'cantidad',
+             'status' => 'estado',
+             'image' => 'imagen',
+             'seller_id' => 'vendedor',
+             'created_at' => 'fechaCreación',
+             'updated_at' => 'fechaActualización',
+             'deleted_at' => 'fechaEliminacion',
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
 }

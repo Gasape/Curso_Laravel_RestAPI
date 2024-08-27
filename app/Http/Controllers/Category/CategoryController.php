@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\CategoryCollection;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends ApiController
 {
-   
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('transform.input:' . CategoryCollection::class)->only(['store', 'update']);
+    }
+
     public function index()
     {
         //Todas las categorias

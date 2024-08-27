@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\ProductCollection;
 use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;
@@ -14,6 +15,14 @@ use function PHPSTORM_META\map;
 
 class SellerProductController extends ApiController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('transform.input:' . ProductCollection::class)->only(['store', 'update']);
+    }
+
     /**
      * Display a listing of the resource.
      */

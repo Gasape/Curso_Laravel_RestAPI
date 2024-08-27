@@ -37,4 +37,18 @@ class TransactionCollection extends ResourceCollection
 
         return isset($attributes[$index]) ? $attributes[$index] : null;
     }
+    public static function transformedAttribute($index)
+    {
+        $attributes = [
+            'id' => 'identificador',
+            'quantity' => 'cantidad',
+            'buyer_id' => 'comprador',
+            'product_id' => 'producto',
+            'created_at' => 'fechaCreación',
+            'updated_at' => 'fechaActualización',
+            'deleted_at' => 'fechaEliminacion',
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
 }

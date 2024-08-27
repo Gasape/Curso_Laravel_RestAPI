@@ -38,5 +38,20 @@ class UserCollection extends ResourceCollection
 
         return isset($attributes[$index]) ? $attributes[$index] : null;
     }
+    public static function transformedAttribute($index)
+    {
+        $attributes = [
+            'id'=> 'identificador',
+            'name'=> 'nombre',
+            'email'=> 'correo',
+            'verified'=> 'esVerificado',
+            'admin'=> 'esAdmin',
+            'created_at'=> 'fechaCreación',
+            'updated_at'=> 'fechaActualización',
+            'deleted_at'=> 'fechaEliminacion',
+        ];
+
+        return isset($attributes[$index]) ? $attributes[$index] : null;
+    }
 
 }
